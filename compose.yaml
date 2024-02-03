@@ -1,0 +1,19 @@
+services:
+  server:
+    build:
+      context: .
+    environment:
+      NODE_ENV: development
+    ports:
+      - 5000:5000
+    env_file:
+      - .env
+    develop:
+      watch:
+        - path: ./package.json
+          action: rebuild
+        - path: ./package-lock.json
+          action: rebuild
+        - path: .
+          target: ./
+          action: sync
