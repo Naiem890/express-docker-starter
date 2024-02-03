@@ -8,12 +8,11 @@ services:
       - 5000:5000
     env_file:
       - .env
+    volumes:
+      - ./src:/usr/src/app/src
     develop:
       watch:
         - path: ./package.json
           action: rebuild
         - path: ./package-lock.json
           action: rebuild
-        - path: .
-          target: ./
-          action: sync
