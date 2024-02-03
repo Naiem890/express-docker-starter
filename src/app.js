@@ -23,7 +23,7 @@ app.use(middleware);
 
 // Default route
 app.get("/", (req, res) => {
-  res.send("Welcome to the Bookdfdsjlfkklsdjf!");
+  res.send("Welcome to the Book Store!");
 });
 
 // Api routes
