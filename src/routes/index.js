@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const bookController = require('../controllers/bookController');
+// const bookController = require('../controllers/bookController.example');
 
-router.use('/books', bookController);
+// router.use('/books', bookController);
 
 module.exports = router;
