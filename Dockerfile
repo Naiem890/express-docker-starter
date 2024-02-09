@@ -19,7 +19,7 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 
 COPY . .
 
-EXPOSE 5000
+EXPOSE 8000
 
 # If NODE_ENV is 'development', override the default command with npm run dev
 CMD ["sh", "-c", "if [ \"$NODE_ENV\" = 'development' ]; then npm run dev; else npm start; fi"]

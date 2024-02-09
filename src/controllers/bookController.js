@@ -1,15 +1,17 @@
-const router = require("express").Router();
-const Book = require("../models/book");
+const router = require('express').Router();
+const Book = require('../models/book');
 
 // Get All Books & Search Books
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const { title, author, genre, sort, order } = req.query;
+    const {
+      title, author, genre, sort, order,
+    } = req.query;
 
     // If no search parameters provided, fetch all books
     if (!title && !author && !genre) {
       const allBooks = await Book.find().sort({
-        [sort || "id"]: order === "DESC" ? -1 : 1,
+        [sort || 'id']: order === 'DESC' ? -1 : 1,
       });
       return res.status(200).json({ books: allBooks });
     }
@@ -20,18 +22,18 @@ router.get("/", async (req, res) => {
     if (genre) searchQuery.genre = genre;
 
     const foundBooks = await Book.find(searchQuery).sort({
-      [sort || "id"]: order === "DESC" ? -1 : 1,
+      [sort || 'id']: order === 'DESC' ? -1 : 1,
     });
 
     res.status(200).json({ books: foundBooks });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
 // Fetch Book by ID
-router.get("/:id", async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -49,18 +51,20 @@ router.get("/:id", async (req, res) => {
     res.status(200).json(existingBook);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
 // Add a new Book
-router.post("/", async (req, res) => {
-  console.log("Request Body: ", req.body);
+router.post('/', async (req, res) => {
+  console.log('Request Body: ', req.body);
   try {
-    const { id, title, author, genre, price } = req.body;
+    const {
+      id, title, author, genre, price,
+    } = req.body;
 
     if (!id || !title || !author || !genre || !price) {
-      return res.status(400).json({ error: "All fields are required." });
+      return res.status(400).json({ error: 'All fields are required.' });
     }
     const newBook = new Book({
       id,
@@ -79,22 +83,24 @@ router.post("/", async (req, res) => {
     if (error.code === 11000) {
       return res
         .status(400)
-        .json({ message: "Book with this id already exists" });
+        .json({ message: 'Book with this id already exists' });
     }
 
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
 // Update a Book
-router.put("/:id", async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, author, genre, price } = req.body;
+    const {
+      title, author, genre, price,
+    } = req.body;
 
     // Validate if id is present in the request parameters
     if (!id) {
-      return res.status(400).json({ error: "Book ID is required." });
+      return res.status(400).json({ error: 'Book ID is required.' });
     }
 
     // Find the book by ID
@@ -120,12 +126,12 @@ router.put("/:id", async (req, res) => {
     res.status(200).json(updatedBook);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
 // Delete a Book
-router.delete("/:id", async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -134,14 +140,14 @@ router.delete("/:id", async (req, res) => {
       return res.status(404).json({ message: `Book with id ${id} not found` });
     }
 
-    await Book.deleteOne({ id: id });
+    await Book.deleteOne({ id });
 
     res
       .status(200)
       .json({ message: `Book with id ${id} successfully deleted` });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 

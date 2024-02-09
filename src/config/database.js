@@ -1,5 +1,6 @@
-const mongoose = require("mongoose");
-mongoose.set("strictQuery", true);
+const mongoose = require('mongoose');
+
+mongoose.set('strictQuery', true);
 
 async function dbConnect() {
   // eslint-disable-next-line no-undef
@@ -10,9 +11,13 @@ async function dbConnect() {
       useUnifiedTopology: true,
       useNewUrlParser: true,
     });
+
+    // Drop the database
+    const result = await mongoose.connection.db.dropDatabase();
+    console.log('Database dropped', result);
     console.log(`Database connected in ${NODE_ENV} mode`);
   } catch (error) {
-    console.error("Error connecting to the database:", error);
+    console.error('Error connecting to the database:', error);
   }
 }
 

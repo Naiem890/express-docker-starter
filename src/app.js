@@ -1,20 +1,22 @@
-const express = require("express");
+const express = require('express');
+
 const app = express();
-const cors = require("cors");
-const logger = require("morgan");
-const cookieParser = require("cookie-parser");
-const dbConnect = require("./config/database");
+const cors = require('cors');
+const logger = require('morgan');
+const dbConnect = require('./config/database');
 const apiRoutes = require("./routes/index");
+
+// set dotenv
+require('dotenv').config();
 
 // eslint-disable-next-line no-undef
 const port = process.env.PORT || 5000;
 
 // Middleware Array
 const middleware = [
-  logger("dev"),
+  logger('dev'),
   cors(),
-  cookieParser(),
-  express.static("public"),
+  express.static('public'),
   express.urlencoded({ extended: true }),
   express.json(),
 ];
@@ -22,19 +24,19 @@ const middleware = [
 app.use(middleware);
 
 // Default route
-app.get("/", (req, res) => {
-  res.send("Welcome to the Book Store!");
+app.get('/', (req, res) => {
+  res.send('Welcome to the Book Store!');
 });
 
 // Api routes
-app.use("/api", apiRoutes);
+app.use('/api', apiRoutes);
 
 // Error handling middleware
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   // Add 'next' as the fourth parameter
   console.error(err.stack);
-  res.status(500).json({ error: "Internal Server Error" });
+  res.status(500).json({ error: 'Internal Server Error' });
 });
 
 // Connect to the database
