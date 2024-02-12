@@ -1,8 +1,17 @@
+<!-- Team Name : MIST_NSK
+Institution name : Military Institute of Science and Technology
+List of emails : 
+1. khaledirfan7@gmail.com 
+2. solaiman.naiem890@gmail.com
+3. farhannizami0612@gmail.com -->
+
+
 ### Clone this template
 
 ```
 git clone https://github.com/Naiem890/express-docker-starter.git
 cd express-docker-starter
+git checkout code_samurai_preli
 docker compose up --build
 docker compose watch // (Development only)
 ```
@@ -30,3 +39,5 @@ docs for more detail on building and pushing.
 ### References
 
 - [Docker's Node.js guide](https://docs.docker.com/language/nodejs/)
+
+
